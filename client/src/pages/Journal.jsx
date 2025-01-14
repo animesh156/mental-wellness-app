@@ -1,13 +1,29 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import { MdDelete } from "react-icons/md";
+import { ToastContainer, toast } from "react-toastify";
+import {useSelector} from 'react-redux'
+import {useNavigate} from 'react-router-dom'
 
 const Journal = () => {
   const [entries, setEntries] = useState([]);
   const [currentEntry, setCurrentEntry] = useState("");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
-  const [error, setError] = useState(null);
-  const [showSuccess, setShowSuccess] = useState(false);
+
+  const navigate = useNavigate()
+
+  const {user} = useSelector((state) => state.auth)
+
+  useEffect(() => {
+    if (!user) {
+      toast.error("Please Login or Sign Up");
+      setTimeout(() => {
+        navigate("/login");
+      }, 4000); // Delay navigation by 1 second
+    }
+  }, [user, navigate]);
+
+ 
 
   // Load entries from local storage or API on component mount
   useEffect(() => {
@@ -17,7 +33,8 @@ const Journal = () => {
 
   const handleSave = () => {
     if (!currentEntry.trim()) {
-      setError("Your journal entry cannot be empty.");
+     
+      toast.error('Please fill the journal entry')
       return;
     }
 
@@ -25,23 +42,27 @@ const Journal = () => {
     const updatedEntries = [...entries, newEntry];
     setEntries(updatedEntries);
     setCurrentEntry("");
-    setError(null);
-    setShowSuccess(true);
+    
+  
 
     // Save to local storage or API
     localStorage.setItem("journalEntries", JSON.stringify(updatedEntries));
 
-    setTimeout(() => setShowSuccess(false), 2000); // Hide success message after 2 seconds
+   toast.success('Journal created successfully')
   };
 
   const handleDelete = (index) => {
     const updatedEntries = entries.filter((_, i) => i !== index);
     setEntries(updatedEntries);
     localStorage.setItem("journalEntries", JSON.stringify(updatedEntries));
+    toast.error('Journal deleted successfully')
   };
+
+  
 
   return (
     <div className="p-6 dark:bg-neutral-900  min-h-screen">
+      <ToastContainer />
       <h1 className="text-4xl font-bold text-center text-blue-600 mb-8">
         Your Personal Journal
       </h1>
@@ -63,14 +84,9 @@ const Journal = () => {
           >
             Save Entry
           </button>
-          {error && <p className="text-red-500 text-sm">{error}</p>}
-        </div>
-        {showSuccess && (
-          <div role="alert" className="alert alert-success w-auto">
          
-          <span className="font-bold">Entry Saved Successfully</span>
         </div>
-        )}
+     
       </div>
 
       <div className="mt-8">

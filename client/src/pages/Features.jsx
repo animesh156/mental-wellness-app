@@ -34,7 +34,7 @@ function Features() {
       </div>
 
       {/* Feature Cards */}
-      <div className="flex justify-center gap-x-6 flex-wrap gap-y-6 mt-7 mb-6">
+      <div className="flex p-4 justify-center gap-x-6 flex-wrap gap-y-6 mt-7 mb-6">
         {features.map((feature, index) => (
           <motion.div
             key={index}

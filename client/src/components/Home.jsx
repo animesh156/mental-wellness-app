@@ -81,9 +81,10 @@ function Home() {
         </div>
 
         {/* Card Components */}
-        <div className="flex mb-9 justify-center gap-x-6 flex-wrap gap-y-6 mt-4">
+        <div className="flex  mb-9 justify-center gap-x-6 flex-wrap gap-y-6 mt-4">
           {benefits.map((benefit, index) => (
-            <motion.div    {...animationSettings}
+            <motion.div  
+              {...animationSettings}
             transition={{
               ...animationSettings.transition,
               delay: 0.6 + index * 0.1, // Stagger each card animation

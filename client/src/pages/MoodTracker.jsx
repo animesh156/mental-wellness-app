@@ -1,10 +1,23 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { submitPHQ9 } from "../apiService";
 import { useSelector } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const PHQ9 = () => {
+  const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (!user) {
+      toast.error("Please Login or Sign Up");
+      setTimeout(() => {
+        navigate("/login");
+      }, 4000); // Delay navigation by 1 second
+    }
+  }, [user, navigate]);
+
 
   const questions = [
     "Little interest or pleasure in doing things?",
@@ -29,7 +42,6 @@ const PHQ9 = () => {
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [severity, setSeverity] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const [error, setError] = useState(null);
 
   const userId = user?._id;
   const token = user?.token;
@@ -51,19 +63,20 @@ const PHQ9 = () => {
 
       setSeverity(severityLevel);
       setShowModal(true);
-      setError(null);
+      toast.success("Response saved successfully");
     } catch (err) {
-      setError(err.response?.data?.error || "Submission failed.");
+      toast.error("Submission failed");
     }
   };
 
   return (
     <div className="flex flex-col items-center p-7">
+      <ToastContainer />
       <h1 className="md:text-4xl text-lg font-bold mb-6 text-cyan-400 text-center">
         PHQ-9 Assessment: Depression Severity Check
       </h1>
 
-      <div className=" flex flex-col items-center p-5  shadow-lg shadow-pink-400 ">
+      <div className="flex flex-col items-center p-5 shadow-lg shadow-pink-400">
         <div className="bg-neutral-950 p-4 md:max-w-2xl m-auto rounded-lg mb-6">
           <h2 className="text-lg font-semibold mb-4 text-white">
             Answer the Questions
@@ -96,41 +109,30 @@ const PHQ9 = () => {
           ))}
         </div>
 
-    <div>
-
-    <button onClick={handleSubmit} className="btn btn-active  btn-secondary">
+        <button onClick={handleSubmit} className="btn btn-active btn-secondary">
           Submit Responses
         </button>
-
-    </div>
-       
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center relative">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50">
+          <div className="bg-neutral-800 text-white p-8 rounded-lg shadow-xl max-w-md w-full relative">
+            <h2 className="text-2xl font-bold text-blue-400 mb-4">
               Depression Severity
             </h2>
-            <p className="text-xl text-gray-600 font-semibold">{severity}</p>
-            <p className="text-sm text-gray-500 mt-2">
-              Your assessment has been successfully submitted.
+            <p className="text-xl font-bold mb-2">{severity}</p>
+            <p className="text-sm text-gray-400">
+              Date: <span className="font-medium text-gray-300">{date}</span>
             </p>
-            <p className="text-sm text-gray-500">
-              Date: <span className="font-medium">{date}</span>
-            </p>
-
             <div className="mt-6 flex justify-center gap-4">
               <button
                 onClick={() => setShowModal(false)}
-                className="btn btn-active btn-accent"
+                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-all"
               >
                 Close
               </button>
             </div>
-
-            {/* Decorative success icon */}
-            <div className="absolute -top-5 left-1/2 transform -translate-x-1/2 bg-blue-600 rounded-full p-3">
+            <div className="absolute -top-5 left-1/2 transform -translate-x-1/2 bg-green-500 rounded-full p-3 shadow-md">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

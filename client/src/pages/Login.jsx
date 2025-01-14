@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react";
-
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { useNavigate, Link } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import { login, reset } from "../features/authSlice";
-
-import { Link } from "react-router-dom";
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -24,11 +21,12 @@ function Login() {
 
   useEffect(() => {
     if (isError) {
-      toast.error(message);
+      toast.error('Invalid Credentials');
     }
 
     if (isSuccess || user) {
-     
+      // Display a success toast when the user logs in
+      toast.success("User logged in successfully!");
       navigate("/features");
     }
 
@@ -54,23 +52,31 @@ function Login() {
   };
 
   if (isLoading) {
-    return (<div className="flex justify-center items-center h-96">
-    <div className="loader border-t-4 border-blue-500 border-solid rounded-full w-16 h-16 animate-spin"></div>
-  </div>)
+    return (
+      <div className="flex justify-center items-center h-96">
+        <div className="loader border-t-4 border-blue-500 border-solid rounded-full w-16 h-16 animate-spin"></div>
+      </div>
+    );
   }
 
   return (
-    <div 
-    className="h-screen w-full bg-cover bg-center flex items-center justify-center log"
-    style={{ backgroundImage: "url('/bg.jpg')" }}
-     >
-     
-      <section className=" mx-auto  border border-gray-300 shadow-md backdrop-blur-sm  md:w-96 px-4 py-4 text-center  rounded-3xl">
-        <form onSubmit={onSubmit} className="py-5 mt-6">
+    <div
+      className="flex items-center justify-center h-screen"
+      style={{
+        backgroundImage:
+          "url('https://res.cloudinary.com/dmdlgpurh/image/upload/v1736879584/pexels-souvenirpixels-1542493_dke22u.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      <ToastContainer />
+      <section className="mx-auto border shadow-md backdrop-blur-sm md:w-96 px-4 py-4 text-center rounded-3xl">
+        <form onSubmit={onSubmit} className="py-5 mt-6 md:w-full w-64">
           <div>
             <input
               type="email"
-             className="py-2.5 px-3 border-2 border-gray-400  focus:outline-none focus:ring-2 focus:ring-gray-500 rounded-xl md:w-80   caret-yellow-500 text-rose-500 mb-8"
+              className="py-2.5 px-3 border-2 focus:outline-none focus:ring-1 backdrop-blur-sm bg-neutral-900 focus:ring-gray-500 rounded-xl md:w-80 caret-yellow-500 text-rose-500 mb-8"
               id="email"
               name="email"
               value={email}
@@ -82,7 +88,7 @@ function Login() {
           <div>
             <input
               type="password"
-              className="py-2.5 px-3 border-2 border-gray-400 rounded-xl focus:outline-none focus:ring-2 md:w-80 focus:ring-gray-500  caret-rose-500 text-rose-500 mb-8"
+              className="py-2.5 px-3 border-2 focus:outline-none focus:ring-1 backdrop-blur-sm bg-neutral-900 focus:ring-gray-500 rounded-xl md:w-80 caret-yellow-500 text-rose-500 mb-8"
               id="password"
               name="password"
               value={password}
@@ -94,16 +100,19 @@ function Login() {
           <div>
             <button
               type="submit"
-              className="bg-sky-500 hover:bg-sky-600  md:w-40 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-bold rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+              className="py-2 px-3 bg-cyan-500 hover:bg-cyan-600 text-black rounded-lg transition-all md:w-32"
             >
               Login
             </button>
           </div>
 
           <div className="mt-4">
-            <p className="font-medium  text-1xl">
+            <p className="font-bold text-gray-300 hover:text-gray-400 text-base">
               New User ?{" "}
-              <Link to="/signUp" className="text-red-500 font-extrabold hover:text-red-700 ">
+              <Link
+                to="/signUp"
+                className="text-sky-500 underline font-extrabold hover:text-sky-700"
+              >
                 Sign Up
               </Link>
             </p>
