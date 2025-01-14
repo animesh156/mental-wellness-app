@@ -29,7 +29,7 @@ function Home() {
         }}
       >
         <div className="text-center absolute text-black">
-          <h1 className="md:text-6xl text-3xl font-extrabold">
+          <h1 className="md:text-6xl text-4xl font-extrabold">
             Find Inner Peace with MindWell
           </h1>
 
@@ -127,3 +127,4 @@ function Home() {
 }
 
 export default Home;
+ 

@@ -67,7 +67,7 @@ function Footer() {
   
           {/* Copyright Section */}
           <div className="text-center mt-6 text-sm border-t border-teal-200 dark:border-gray-700 pt-4">
-            © {new Date().getFullYear()} MindWell. All rights reserved.
+            © {new Date().getFullYear()} Animesh Rathore. All rights reserved.
           </div>
         </div>
       </footer>
