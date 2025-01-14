@@ -6,7 +6,7 @@ function Features() {
   const navigate = useNavigate();
 
   return (
-    <div className="h-screen px-4">
+    <div className="h-screen bg-neutral-950 px-4">
       <Outlet />
       {/* Header */}
       <div className="text-center mt-5 mb-10">
