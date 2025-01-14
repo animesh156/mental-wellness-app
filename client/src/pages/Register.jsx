@@ -83,7 +83,7 @@ function Register() {
           <div>
             <input
               type="text"
-              className="py-2.5 px-3 border-2   focus:outline-none focus:ring-1 backdrop-blur-sm bg-neutral-900 focus:ring-gray-500 rounded-xl md:w-80   caret-yellow-500 text-rose-500 mb-8"
+              className="py-2.5 px-3 border-2 w-64  focus:outline-none focus:ring-1 backdrop-blur-sm bg-neutral-900 focus:ring-gray-500 rounded-xl md:w-80   caret-yellow-500 text-rose-500 mb-8"
               id="name"
               name="name"
               value={name}
@@ -94,7 +94,7 @@ function Register() {
           <div>
             <input
               type="email"
-              className="py-2.5 px-3 border-2   focus:outline-none focus:ring-1 backdrop-blur-sm bg-neutral-900 focus:ring-gray-500 rounded-xl md:w-80   caret-yellow-500 text-rose-500 mb-8"
+              className="py-2.5 px-3 border-2 w-64  focus:outline-none focus:ring-1 backdrop-blur-sm bg-neutral-900 focus:ring-gray-500 rounded-xl md:w-80   caret-yellow-500 text-rose-500 mb-8"
               id="email"
               name="email"
               value={email}
@@ -105,7 +105,7 @@ function Register() {
           <div>
             <input
               type="password"
-              className="py-2.5 px-3 border-2   focus:outline-none focus:ring-1 backdrop-blur-sm bg-neutral-900 focus:ring-gray-500 rounded-xl md:w-80   caret-yellow-500 text-rose-500 mb-8"
+              className="py-2.5 px-3 border-2  w-64 focus:outline-none focus:ring-1 backdrop-blur-sm bg-neutral-900 focus:ring-gray-500 rounded-xl md:w-80   caret-yellow-500 text-rose-500 mb-8"
               id="password"
               name="password"
               value={password}

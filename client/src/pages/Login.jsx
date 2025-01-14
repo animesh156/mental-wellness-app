@@ -72,11 +72,11 @@ function Login() {
     >
       <ToastContainer />
       <section className="mx-auto border shadow-md backdrop-blur-sm md:w-96 px-4 py-4 text-center rounded-3xl">
-        <form onSubmit={onSubmit} className="py-5 mt-6 md:w-full w-64">
+        <form onSubmit={onSubmit} className="py-5 mt-6 md:w-full ">
           <div>
             <input
               type="email"
-              className="py-2.5 px-3 border-2 focus:outline-none focus:ring-1 backdrop-blur-sm bg-neutral-900 focus:ring-gray-500 rounded-xl md:w-80 caret-yellow-500 text-rose-500 mb-8"
+              className="py-2.5 px-3 border-2 focus:outline-none focus:ring-1 backdrop-blur-sm bg-neutral-900 focus:ring-gray-500 rounded-xl w-64 md:w-80 caret-yellow-500 text-rose-500 mb-8"
               id="email"
               name="email"
               value={email}
@@ -88,7 +88,7 @@ function Login() {
           <div>
             <input
               type="password"
-              className="py-2.5 px-3 border-2 focus:outline-none focus:ring-1 backdrop-blur-sm bg-neutral-900 focus:ring-gray-500 rounded-xl md:w-80 caret-yellow-500 text-rose-500 mb-8"
+              className="py-2.5 px-3 border-2 w-64 focus:outline-none focus:ring-1 backdrop-blur-sm bg-neutral-900 focus:ring-gray-500 rounded-xl md:w-80 caret-yellow-500 text-rose-500 mb-8"
               id="password"
               name="password"
               value={password}

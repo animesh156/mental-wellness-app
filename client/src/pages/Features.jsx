@@ -19,7 +19,7 @@ function Features() {
     <div >
      
       {/* Header */}
-      <div className="text-center mt-5 mb-10">
+      <div className="text-center mt-10 mb-10">
         <Balancer>
           <motion.h1 {...animationSettings}
           transition={{ ...animationSettings.transition, delay: 0.4 }}  className="md:text-5xl text-3xl text-sky-600 md:font-bold font-extrabold">

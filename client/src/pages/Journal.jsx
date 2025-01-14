@@ -19,7 +19,7 @@ const Journal = () => {
       toast.error("Please Login or Sign Up");
       setTimeout(() => {
         navigate("/login");
-      }, 4000); // Delay navigation by 1 second
+      }, 2000); // Delay navigation by 1 second
     }
   }, [user, navigate]);
 
