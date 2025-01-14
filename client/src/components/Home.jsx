@@ -4,10 +4,17 @@ import Balancer from "react-wrap-balancer";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { benefits } from '../utils/benefitsData';
+import {motion} from 'framer-motion'
 
 function Home() {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
+
+  const animationSettings = {
+    initial: { x: -200, opacity: 0 }, // Start off-screen to the left and invisible
+    animate: { x: 0, opacity: 1 },   // Move into view and become visible
+    transition: { type: 'spring', stiffness: 50 }, // Spring animation
+  };
 
   return (
     <>
@@ -51,24 +58,36 @@ function Home() {
       {/* Benefits Section (Full Screen) */}
       <div className="flex flex-col justify-center  items-center text-white p-6 h-full">
 
-        <div className="text-center mb-8 mt-10">
+        <div className="text-center mb-8 mt-10"
+        
+        >
           <Balancer>
-            <h1 className="md:text-5xl font-extrabold text-2xl text-teal-400 md:font-bold mb-4">
+            <motion.h1 
+            {...animationSettings}
+            transition={{ ...animationSettings.transition, delay: 0.4 }}
+            className="md:text-5xl font-extrabold text-2xl text-teal-400 md:font-bold mb-4">
               Transform Your Life with MindWell
-            </h1>
+            </motion.h1>
           </Balancer>
 
-          <p className="text-xs font-bold md:text-lg text-gray-300 ">
+          <motion.p
+          {...animationSettings}
+          transition={{ ...animationSettings.transition, delay: 0.4 }}
+           className="text-xs font-bold md:text-lg text-gray-300 ">
             <Balancer>
               Experience the powerful benefits of regular mental wellness practice
             </Balancer>
-          </p>
+          </motion.p>
         </div>
 
         {/* Card Components */}
         <div className="flex mb-9 justify-center gap-x-6 flex-wrap gap-y-6 mt-4">
           {benefits.map((benefit, index) => (
-            <div className="card w-96 shadow-md bg-neutral-900 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-80 hover:shadow-cyan-300" key={index}>
+            <motion.div    {...animationSettings}
+            transition={{
+              ...animationSettings.transition,
+              delay: 0.6 + index * 0.1, // Stagger each card animation
+            }} className="card w-96 shadow-md bg-neutral-900  hover:shadow-cyan-300" key={index}>
               <div className="card-body">
 
                 <div className={`${benefit.color}`}><benefit.icon size={34} /></div>
@@ -78,7 +97,7 @@ function Home() {
                   {benefit.description}
                 </p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 

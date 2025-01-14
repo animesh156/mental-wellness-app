@@ -1,30 +1,51 @@
 import Balancer from "react-wrap-balancer";
 import { testimonials } from "../utils/testimonialsData";
+import {motion} from 'framer-motion'
 
 function Testimonials() {
+  
+  const animationSettings = {
+    initial: { x: -200, opacity: 0 }, // Start off-screen to the left and invisible
+    animate: { x: 0, opacity: 1 },   // Move into view and become visible
+    transition: { type: 'spring', stiffness: 50 }, // Spring animation
+  };
+
   return (
     <div className="md:h-screen h-full flex flex-col items-center    justify-center">
       <div className="text-center mb-8 ">
         <Balancer>
-          <h1 className="md:text-5xl text-3xl font-extrabold mb-4 text-cyan-300">
+          <motion.h1 
+           {...animationSettings}
+           transition={{ ...animationSettings.transition, delay: 0.4 }} 
+          className="md:text-5xl text-3xl font-extrabold mb-4 text-cyan-300">
             Success Stories from Our Users
-          </h1>
+          </motion.h1>
         </Balancer>
 
-        <p className="text-base md:text-lg text-gray-300  font-medium">
-          <Balancer>
+        <Balancer>
+        <motion.p
+         {...animationSettings}
+         transition={{ ...animationSettings.transition, delay: 0.4 }} 
+         className="text-base md:text-lg text-gray-300  font-medium">
+         
             Discover how MindWell has transformed lives and improved mental
             wellness
-          </Balancer>
-        </p>
+          
+        </motion.p>
+        </Balancer>
       </div>
 
       {/* card components */}
       <div className="flex justify-center gap-x-8 gap-y-7 flex-wrap mt-6 mb-6">
         {testimonials.map((testimonial, index) => (
-          <div
-            className="card bg-neutral-900   border transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-80 hover:shadow-red-400 shadow-md backdrop-blur-sm w-96 "
+          <motion.div
+            className="card bg-neutral-900   border hover:shadow-red-400 shadow-md backdrop-blur-sm w-96 "
             key={index}
+            {...animationSettings}
+            transition={{
+              ...animationSettings.transition,
+              delay: 0.6 + index * 0.1, // Stagger each card animation
+            }}
           >
             <div className="card-body">
               <div className="flex gap-x-3">
@@ -74,7 +95,7 @@ function Testimonials() {
                 />
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>
