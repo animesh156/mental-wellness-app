@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const submitPHQ9 = async (userId, date, responses, token) => {
   const response = await axios.post(
-    "http://localhost:7643/phq9/submit",
+    "https://mental-wellness-backend.vercel.app/phq9/submit",
     { userId, date, responses },
     { headers: { Authorization: `Bearer ${token}` } }
   );
@@ -12,7 +12,7 @@ const submitPHQ9 = async (userId, date, responses, token) => {
 // Fetch PHQ-9 Result
 
  const fetchPHQ9Result = async (userId, date, token) => {
-  const response = await axios.get("http://localhost:7643/phq9/result", {
+  const response = await axios.get("https://mental-wellness-backend.vercel.app/phq9/result", {
     params: { userId, date },
     headers: { Authorization: `Bearer ${token}` },
   }); 

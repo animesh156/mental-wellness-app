@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-const registerRoute = "http://localhost:7643/user/sign"
+const registerRoute = "https://mental-wellness-backend.vercel.app/user/sign"
 
 
-const loginRoute =    "http://localhost:7643/user/login"
+const loginRoute =    "https://mental-wellness-backend.vercel.app/user/login"
 
 
 
