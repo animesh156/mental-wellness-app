@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { logout, reset } from '../features/authSlice';
-import {useDispatch } from "react-redux";
+import {useDispatch, useSelector } from "react-redux";
 
 
 import { IoClose } from "react-icons/io5";
 import { BsList } from "react-icons/bs";
 
 function Header() {
+  const {user} = useSelector((state) => state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   
@@ -79,12 +80,13 @@ function Header() {
             </NavLink>
           </li>
 
-
-          <li className="nav-item">
+{user ?  <li className="nav-item">
             <button onClick={onLogout}>
               LogOut
             </button>
-          </li>
+          </li>  : null}
+
+         
 
 
 
