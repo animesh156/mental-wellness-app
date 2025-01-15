@@ -11,7 +11,7 @@ const PieChart = () => {
   const [chartData, setChartData] = useState(null);
   const { user } = useSelector((state) => state.auth);
 
-  const userId = user._id;
+  const userId = user ? user._id : null;
 
   useEffect(() => {
     const fetchData = async () => {

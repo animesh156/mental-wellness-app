@@ -2,6 +2,7 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { logout, reset } from '../features/authSlice';
 import {useDispatch, useSelector } from "react-redux";
+import {toast, ToastContainer} from 'react-toastify'
 
 
 import { IoClose } from "react-icons/io5";
@@ -16,9 +17,13 @@ function Navbar() {
   
   
     const onLogout = () => {
-        dispatch(logout())
-        dispatch(reset())
-        navigate('/')
+      toast.success('Logged out scuccessfully')
+        // Delay navigation to allow toast to display
+  setTimeout(() => {
+    dispatch(logout());
+    dispatch(reset());
+    navigate('/');
+  }, 2000); 
     }
 
 
@@ -29,6 +34,8 @@ function Navbar() {
 
   return (
     <nav className="navbar bg-neutral-800">
+
+      <ToastContainer />
       <div className="nav-container">
         <div className="nav-logo">
          

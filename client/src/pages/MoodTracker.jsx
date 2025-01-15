@@ -16,7 +16,7 @@ const PHQ9 = () => {
       toast.error("Please Login or Sign Up");
       setTimeout(() => {
         navigate("/login");
-      }, 2000); // Delay navigation by 1 second
+      }, 2000); // Delay navigation by 2 second
     }
   }, [user, navigate]);
 
@@ -44,6 +44,7 @@ const PHQ9 = () => {
   const [severity, setSeverity] = useState("");
   const [showModal, setShowModal] = useState(false);
 
+  // Safely access user data
   const userId = user?._id;
   const token = user?.token;
 
@@ -57,6 +58,13 @@ const PHQ9 = () => {
 
   const handleSubmit = async () => {
     try {
+      // Ensure user is logged in before submitting
+      if (!userId || !token) {
+        toast.error("Please Login or Sign Up");
+        navigate("/login");
+        return;
+      }
+
       const score = responses.reduce((a, b) => a + b, 0);
       const severityLevel = calculateSeverity(score);
 

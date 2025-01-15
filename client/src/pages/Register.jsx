@@ -120,7 +120,7 @@ function Register() {
           <div>
             <button
               type="submit"
-              className="bg-sky-950 hover:bg-sky-900  md:w-40 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-bold rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+              className="bg-sky-400 hover:bg-sky-500  md:w-40 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-bold rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
             >
               Sign Up
             </button>
