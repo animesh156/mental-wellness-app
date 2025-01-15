@@ -9,15 +9,12 @@ const submitPHQ9 = async (userId, date, responses, token) => {
   return response.data;
 };
 
-// Fetch PHQ-9 Result
+// // Fetch PHQ-9 Result
+//  const fetchPHQ9Result = async (userId, date) => {
+//   const response = await fetch(`https://mental-wellness-backend.vercel.app/phq9/result?userId=${userId}&date=${date}`);
+//   if (!response.ok) throw new Error("Failed to fetch PHQ-9 result.");
+//   return response.json();
+// };
 
- const fetchPHQ9Result = async (userId, date, token) => {
-  const response = await axios.get("https://mental-wellness-backend.vercel.app/phq9/result", {
-    params: { userId, date },
-    headers: { Authorization: `Bearer ${token}` },
-  }); 
-  return response.data;
-};
-  
-  export { submitPHQ9, fetchPHQ9Result };
+  export { submitPHQ9, };
    

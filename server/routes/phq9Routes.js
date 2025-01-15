@@ -42,32 +42,21 @@ router.post('/submit', async (req, res) => {
   }
 });
 
-// Fetch PHQ-9 result for a specific day
-router.get('/result', async (req, res) => {
-  const { userId, date } = req.query;
 
-  if (!userId || !date) {
-    return res.status(400).json({ error: 'Provide userId and date as query parameters.' });
-  }
+router.get('/result/:userId', async (req, res) => {
+  const userId = req.params.userId;
+  const currentDate = new Date().toISOString().split('T')[0]; // Format as YYYY-MM-DD
 
   try {
-    const normalizedDate = moment(date).utc().format('YYYY-MM-DD');
-    const response = await PHQ9Response.find({ userId, date: normalizedDate});
-    if (!response) {
-      return res.status(404).json({ error: 'No PHQ-9 data found for the specified user and date.' });
+    const data = await PHQ9Response.find({ userId, date: currentDate });
+    if (data.length > 0) {
+      res.status(200).json({ success: true, data });
+    } else {
+      res.status(404).json({ success: false, message: 'No data found for the current day.' });
     }
-
-    res.status(200).json({
-      message: 'PHQ-9 result retrieved successfully',
-      data: {
-        date: response.date,
-        score: response.score,
-        severity: response.severity,
-        responses: response.responses,
-      },
-    });
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch data' });
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 });
 

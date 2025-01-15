@@ -1,13 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
-import { submitPHQ9, fetchPHQ9Result } from "../apiService";
+import { submitPHQ9 } from "../apiService";
 import { useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { Pie } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+import PieChart from "../components/PieChart";
 
 const PHQ9 = () => {
   const navigate = useNavigate();
@@ -45,7 +43,6 @@ const PHQ9 = () => {
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [severity, setSeverity] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const [chartData, setChartData] = useState(null);
 
   const userId = user?._id;
   const token = user?.token;
@@ -58,44 +55,6 @@ const PHQ9 = () => {
     return "Severe";
   };
 
-  const fetchChartData = async () => {
-    try {
-      const result = await fetchPHQ9Result(userId, date);
-      if (result && result.data) {
-        const responses = result.data.responses || [];
-        const data = responses.reduce(
-          (acc, response) => {
-            acc[response] = (acc[response] || 0) + 1;
-            return acc;
-          },
-          [0, 0, 0, 0]
-        );
-
-        setChartData({
-          labels: answerOptions.map((option) => option.label),
-          datasets: [
-            {
-              data,
-              backgroundColor: ["#4caf50", "#ffeb3b", "#ff9800", "#f44336"],
-              borderColor: ["#4caf50", "#ffeb3b", "#ff9800", "#f44336"],
-              borderWidth: 1,
-            },
-          ],
-        });
-      } else {
-        toast.info("No chart data available.");
-      }
-    } catch (err) {
-      toast.error("Failed to fetch chart data.");
-    }
-  };
-
-  useEffect(() => {
-    if (userId) {
-      fetchChartData();
-    }
-  }, [userId, date]);
-
   const handleSubmit = async () => {
     try {
       const score = responses.reduce((a, b) => a + b, 0);
@@ -106,7 +65,6 @@ const PHQ9 = () => {
       setSeverity(severityLevel);
       setShowModal(true);
       toast.success("Response saved successfully");
-      fetchChartData(); // Refresh chart data after submission
     } catch (err) {
       toast.error("Submission failed");
     }
@@ -119,10 +77,10 @@ const PHQ9 = () => {
         PHQ-9 Assessment: Depression Severity Check
       </h1>
 
-      {/* Grid layout for larger screens (9 columns for questions, 3 columns for chart) */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 w-full">
+      {/* Grid layout for larger screens (8 columns for questions, 4 columns for chart) */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 w-full">
         {/* Questions Section */}
-        <div className="md:col-span-7 p-5 shadow-lg shadow-pink-400 bg-neutral-950 rounded-lg">
+        <div className="md:col-span-8 p-5 shadow-lg shadow-pink-400 bg-neutral-950 rounded-lg">
           <div className="bg-neutral-950 p-4 md:max-w-2xl m-auto rounded-lg mb-6">
             <h2 className="text-lg font-semibold mb-4 text-white">Answer the Questions</h2>
             {questions.map((question, index) => (
@@ -159,31 +117,9 @@ const PHQ9 = () => {
         </div>
 
         {/* Chart Section */}
-        <div className="md:col-span-5 mt-8 p-5 shadow-lg shadow-pink-400 bg-neutral-950 rounded-lg min-h-[300px]">
-  {chartData ? (
-    <div className="flex flex-col justify-center items-center h-full">
-      <Pie
-        data={chartData}
-        options={{
-          responsive: true,
-          plugins: {
-            legend: {
-              position: "top",
-            },
-          },
-        }}
-        width={200}   // Adjust width for larger screens
-        height={200}  // Adjust height for larger screens
-      />
-      <h2 className="text-xl mt-4 font-bold mb-4 text-sky-400 text-center">
-        Severity data for {new Date(date).toLocaleDateString()}
-      </h2>
-    </div>
-  ) : (
-    <p className="text-gray-400 text-center">Loading chart data...</p>
-  )}
-</div>
-
+        <div className="md:col-span-4 h-screen flex items-center">
+          <PieChart />
+        </div>
       </div>
 
       {/* Modal for showing severity */}
