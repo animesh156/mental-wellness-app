@@ -61,18 +61,18 @@ const Journal = () => {
   
 
   return (
-    <div className="p-6 dark:bg-neutral-900  min-h-screen">
+    <div className="p-6 dbg-neutral-900  min-h-screen">
       <ToastContainer />
       <h1 className="text-4xl font-bold text-center text-blue-600 mb-8">
         Your Personal Journal
       </h1>
 
-      <div className="bg-white dark:bg-neutral-700 shadow-lg md:max-w-3xl m-auto rounded-lg p-6 mb-6">
-        <h2 className="text-2xl font-semibold text-gray-700 dark:text-white mb-4">
+      <div className=" bg-neutral-700 shadow-lg md:max-w-3xl m-auto rounded-lg p-6 mb-6">
+        <h2 className="text-2xl font-semibold  text-white mb-4">
           Write Your Thoughts
         </h2>
         <textarea
-          className="w-full h-36 p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
+          className="w-full bg-neutral-800 text-white h-36 p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
           placeholder="What's on your mind today?"
           value={currentEntry}
           onChange={(e) => setCurrentEntry(e.target.value)}
@@ -90,20 +90,20 @@ const Journal = () => {
       </div>
 
       <div className="mt-8">
-        <h2 className="text-2xl  mt-7 text-center text-gray-700 font-bold dark:text-pink-500 mb-4">
+        <h2 className="text-2xl  mt-7 text-center  font-bold text-pink-500 mb-4">
           Your Journal Entries
         </h2>
         {entries.length > 0 ? (
-          <div className="space-y-6 overflow-y-scroll h-96 mb-7">
+          <div className="space-y-6 overflow-y-scroll h-96 mb-7 scroll-container">
             {entries.map((entry, index) => (
               <div
                 key={index}
-                className="bg-white dark:bg-neutral-950 md:max-w-3xl m-auto shadow-lg rounded-lg p-5 border-l-4 border-blue-500"
+                className="bg-neutral-800 md:max-w-3xl m-auto shadow-lg rounded-lg p-5 border-l-4 border-blue-500"
               >
                 <div className="flex justify-between items-start">
                   <div>
                     <p className="text-gray-500 text-sm">{entry.date}</p>
-                    <p className="text-gray-700 dark:text-white mt-3">{entry.content}</p>
+                    <p className="text-white mt-3">{entry.content}</p>
                   </div>
                   <button
                     onClick={() => handleDelete(index)}

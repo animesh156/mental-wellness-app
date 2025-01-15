@@ -52,7 +52,7 @@ router.get('/result', async (req, res) => {
 
   try {
     const normalizedDate = moment(date).utc().format('YYYY-MM-DD');
-    const response = await PHQ9Response.findOne({ userId, date: normalizedDate});
+    const response = await PHQ9Response.find({ userId, date: normalizedDate});
     if (!response) {
       return res.status(404).json({ error: 'No PHQ-9 data found for the specified user and date.' });
     }
