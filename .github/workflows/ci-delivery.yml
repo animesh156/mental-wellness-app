@@ -56,9 +56,11 @@ jobs:
     - name: Manual approval step
       uses: chrnorm/deployment-action@v2
       with:
+        token: ${{ secrets.GITHUB_TOKEN }}
         environment: production
         description: "Click 'Review and Approve' to deploy to production"
-        auto_merge: false
+        auto-merge: false
+
 
     - name: Deploy (placeholder)
       run: echo "🚀 Deploying to Vercel (or Render) manually approved..."
