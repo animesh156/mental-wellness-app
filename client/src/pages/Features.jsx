@@ -22,7 +22,7 @@ function Features() {
       <div className="text-center mt-10 mb-10">
         <Balancer>
           <motion.h1 {...animationSettings}
-          transition={{ ...animationSettings.transition, delay: 0.4 }}  className="md:text-5xl text-3xl text-sky-600 md:font-bold font-extrabold">
+          transition={{ ...animationSettings.transition, delay: 0.4 }}  className="md:text-4xl text-3xl text-[#e576f1] md:font-bold font-semibold">
             Features That Transform Your Mental Wellness Journey
           </motion.h1>
           <motion.p className="md:text-lg text-sm font-bold mt-4 text-gray-300" {...animationSettings}

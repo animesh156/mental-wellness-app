@@ -17,7 +17,7 @@ function Testimonials() {
           <motion.h1 
            {...animationSettings}
            transition={{ ...animationSettings.transition, delay: 0.4 }} 
-          className="md:text-5xl text-3xl font-extrabold mb-4 text-cyan-300">
+          className="md:text-5xl text-3xl font-extrabold mb-4 text-[#e576f1]">
             Success Stories from Our Users
           </motion.h1>
         </Balancer>
@@ -56,8 +56,8 @@ function Testimonials() {
                 </div>
 
                 <div >
-                  <h2 className="card-title text-pink-500 ">{testimonial.name}</h2>
-                  <h5 className="font-mono text-red-400 ">{testimonial.job}</h5>
+                  <h2 className="card-title text-[#e576f1] ">{testimonial.name}</h2>
+                  <h5 className="font-mono text-white ">{testimonial.job}</h5>
                 </div>
               </div>
 

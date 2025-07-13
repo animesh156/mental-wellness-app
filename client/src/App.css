@@ -80,17 +80,17 @@
   
   .nav-item:hover:after {
     width: 100%;
-    background: #ffdd40;
+    background: #e576f1;
   }
   
   .nav-item .active {
-    color: #fd7608;
+    color: #e576f1;
    
   }
   
   .nav-icon {
     display: none;
-    color: #f5b921;
+    color: #e576f1;
   }
   
   .nav-icon .icon {
@@ -121,7 +121,7 @@
       z-index: 1;
     }
     .nav-item .active {
-      color: #fd7608;
+      color: #e576f1;
       border: none;
     }
     .nav-links {
