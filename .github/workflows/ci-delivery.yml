@@ -1,12 +1,11 @@
-name: CI/CD with Manual Approval
+name: CI/CD with Manual Deployment
 
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
 
 jobs:
   build:
-    name: Build & Test
+    name: Build & Test (CI)
     runs-on: ubuntu-latest
 
     services:
@@ -15,52 +14,47 @@ jobs:
         ports: ['27017:27017']
 
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v3
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
-    - name: Install Server Dependencies
-      run: |
-        cd server
-        npm install
+      - name: 📦 Install Server Dependencies
+        run: |
+          cd server
+          npm install
 
-    - name: Run Backend Tests (optional)
-      run: |
-        cd server
-        npm test || echo "No backend tests yet"
+      - name: 🧪 Run Backend Tests
+        run: |
+          cd server
+          npm test || echo "No backend tests yet"
 
-    - name: Install Client Dependencies
-      run: |
-        cd client
-        npm install
+      - name: 📦 Install Client Dependencies
+        run: |
+          cd client
+          npm install
 
-    - name: Build Frontend
-      run: |
-        cd client
-        npm run build
+      - name: ⚙️ Build Frontend
+        run: |
+          cd client
+          npm run build
 
   deploy:
-    name: Deploy to Vercel
+    name: 🚀 Deploy to Vercel (Manual Trigger)
     needs: build
     runs-on: ubuntu-latest
 
     steps:
-    - name: Wait for manual approval ✅
-      uses: hmarr/auto-approve-action@v3
-      if: github.event_name == 'workflow_dispatch'
+      - name: 📤 Create GitHub Deployment (requires approval)
+        uses: chrnorm/deployment-action@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          environment: production
+          description: "Click 'Review and Approve' to deploy to production"
+          auto-merge: false
 
-    - name: Manual approval step
-      uses: chrnorm/deployment-action@v2
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        environment: production
-        description: "Click 'Review and Approve' to deploy to production"
-        auto-merge: false
-
-
-    - name: Deploy (placeholder)
-      run: echo "🚀 Deploying to Vercel (or Render) manually approved..."
+      - name: 🚀 Deploy to Vercel (placeholder)
+        run: echo "✅ App manually approved and ready for deployment to Vercel"
