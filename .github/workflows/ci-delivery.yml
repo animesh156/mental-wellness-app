@@ -1,60 +1,40 @@
-name: CI/CD with Manual Deployment
+name: CI/CD with Manual Approval
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [main]
 
 jobs:
   build:
-    name: Build & Test (CI)
+    name: 🔧 Build & Test
     runs-on: ubuntu-latest
 
-    services:
-      mongo:
-        image: mongo
-        ports: ['27017:27017']
-
     steps:
-      - name: 📥 Checkout Code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: 🔧 Setup Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: 📦 Install Server Dependencies
+      - name: Install & Test Backend
         run: |
           cd server
           npm install
+          npm test || echo "No tests"
 
-      - name: 🧪 Run Backend Tests
-        run: |
-          cd server
-          npm test || echo "No backend tests yet"
-
-      - name: 📦 Install Client Dependencies
+      - name: Install & Build Frontend
         run: |
           cd client
           npm install
-
-      - name: ⚙️ Build Frontend
-        run: |
-          cd client
           npm run build
 
   deploy:
-    name: 🚀 Deploy to Vercel (Manual Trigger)
+    name: 🚀 Deploy (Manual Approval)
     needs: build
     runs-on: ubuntu-latest
-
+    environment:
+      name: production
+      url: https://mental-wellness-iota.vercel.app
     steps:
-      - name: 📤 Create GitHub Deployment (requires approval)
-        uses: chrnorm/deployment-action@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          environment: production
-          description: "Click 'Review and Approve' to deploy to production"
-          auto-merge: false
-
-      - name: 🚀 Deploy to Vercel (placeholder)
-        run: echo "✅ App manually approved and ready for deployment to Vercel"
+      - name: ✅ Placeholder deploy
+        run: echo "🚀 Deployment approved and running!"
